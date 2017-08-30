@@ -1,0 +1,18 @@
+﻿Der Buildvorgang wurde am 29.08.2017 13:29:42 gestartet.
+     1>Projekt "C:\Users\skletz\Dropbox\Programming\CUPCakes\opencv-como\ide\opencv-como.vcxproj" auf Knoten "2", Build Ziel(e).
+     1>InitializeBuildStatus:
+         Aktualisieren des Timestamps von "x64\Debug\opencv-como.tlog\unsuccessfulbuild".
+       ClCompile:
+         Alle Ausgaben sind aktuell.
+       Link:
+         Alle Ausgaben sind aktuell.
+         opencv-como.vcxproj -> C:\Users\skletz\Dropbox\Programming\CUPCakes\opencv-como\ide\x64\Debug\opencv-como.exe
+         opencv-como.vcxproj -> C:\Users\skletz\Dropbox\Programming\CUPCakes\opencv-como\ide\x64\Debug\opencv-como.pdb (Partial PDB)
+       FinalizeBuildStatus:
+         Die Datei "x64\Debug\opencv-como.tlog\unsuccessfulbuild" wird gelöscht.
+         Aktualisieren des Timestamps von "x64\Debug\opencv-como.tlog\opencv-como.lastbuildstate".
+     1>Die Erstellung von Projekt "C:\Users\skletz\Dropbox\Programming\CUPCakes\opencv-como\ide\opencv-como.vcxproj" ist abgeschlossen (Build Ziel(e)).
+
+Der Buildvorgang wurde erfolgreich ausgeführt.
+
+Verstrichene Zeit 00:00:00.38
