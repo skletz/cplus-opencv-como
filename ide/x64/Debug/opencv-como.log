@@ -1,11 +1,15 @@
-﻿Der Buildvorgang wurde am 29.08.2017 13:29:42 gestartet.
+﻿Der Buildvorgang wurde am 30.08.2017 16:56:10 gestartet.
      1>Projekt "C:\Users\skletz\Dropbox\Programming\CUPCakes\opencv-como\ide\opencv-como.vcxproj" auf Knoten "2", Build Ziel(e).
      1>InitializeBuildStatus:
-         Aktualisieren des Timestamps von "x64\Debug\opencv-como.tlog\unsuccessfulbuild".
+         "x64\Debug\opencv-como.tlog\unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
        ClCompile:
-         Alle Ausgaben sind aktuell.
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /IC:\libraries\opencv_3_1\opencv\build\include /ZI /nologo /W3 /WX- /sdl /Od /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt /FS ..\como\src\COMO.cpp ..\como\src\como_engine.cpp
+         como_engine.cpp
+         COMO.cpp
+         Code wird generiert...
        Link:
-         Alle Ausgaben sind aktuell.
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\skletz\Dropbox\Programming\CUPCakes\opencv-como\ide\x64\Debug\opencv-como.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\libraries\opencv_3_1\opencv\build\x64\vc14\lib /LIBPATH:C:\libraries\opencv_3_1\opencv\build\x64\vc14\bin opencv_world310d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG:FASTLINK /PDB:"C:\Users\skletz\Dropbox\Programming\CUPCakes\opencv-como\ide\x64\Debug\opencv-como.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\skletz\Dropbox\Programming\CUPCakes\opencv-como\ide\x64\Debug\opencv-como.lib" /MACHINE:X64 x64\Debug\COMO.obj
+         x64\Debug\como_engine.obj
          opencv-como.vcxproj -> C:\Users\skletz\Dropbox\Programming\CUPCakes\opencv-como\ide\x64\Debug\opencv-como.exe
          opencv-como.vcxproj -> C:\Users\skletz\Dropbox\Programming\CUPCakes\opencv-como\ide\x64\Debug\opencv-como.pdb (Partial PDB)
        FinalizeBuildStatus:
@@ -15,4 +19,4 @@
 
 Der Buildvorgang wurde erfolgreich ausgeführt.
 
-Verstrichene Zeit 00:00:00.38
+Verstrichene Zeit 00:00:05.38
