@@ -21,10 +21,33 @@
     <ClCompile Include="..\como\src\como_engine.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="..\como\src\fuzzificator.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="..\como\src\quantifier.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\como\src\como_engine.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="..\como\src\fuzzificator.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="..\como\src\quantifier.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\testdata\test_img_1.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\testdata\test_img_2.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="..\testdata\test_img_3.jpg">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
 </Project>

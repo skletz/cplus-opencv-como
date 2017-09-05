@@ -30,8 +30,7 @@ int main(int argc, char **argv) {
 	std::string videoFile = argv[1];
 	std::string outputFile = argv[2];
 
-	cv::Mat image;
-	image = cv::imread(videoFile, CV_LOAD_IMAGE_COLOR);
+	cv::Mat image = cv::imread(videoFile, CV_LOAD_IMAGE_COLOR);
 
 	if (!image.data)
 	{
@@ -44,13 +43,16 @@ int main(int argc, char **argv) {
 
 	//while (inputImageStream)
 	//{
-	//	std::vector<cv::Point2f> featurePnts;
+		//std::vector<cv::Point2f> featurePnts;
 	//	cv::Mat &descriptors;
 
 	//	image = get_newImage(); // no need to be implemented.
-	//	comoExtractor.detect(image, featurePnts);
+		//comoExtractor.detect(image, featurePnts);
 	//	comoExtractor.describe(image, featurePnts, descriptors);
 	//}
+
+	cv::Mat descriptors;
+	comoExtractor.describe(image, descriptors);
 
 	comoExtractor.deallocate();
 

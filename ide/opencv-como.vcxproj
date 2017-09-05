@@ -116,9 +116,18 @@
   <ItemGroup>
     <ClCompile Include="..\como\src\COMO.cpp" />
     <ClCompile Include="..\como\src\como_engine.cpp" />
+    <ClCompile Include="..\como\src\fuzzificator.cpp" />
+    <ClCompile Include="..\como\src\quantifier.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\como\src\como_engine.h" />
+    <ClInclude Include="..\como\src\fuzzificator.h" />
+    <ClInclude Include="..\como\src\quantifier.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\testdata\test_img_1.jpg" />
+    <Image Include="..\testdata\test_img_2.jpg" />
+    <Image Include="..\testdata\test_img_3.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
