@@ -91,6 +91,7 @@ bool como_engine::describe(cv::Mat& image, cv::Mat& descriptor)
 		TemoMAX_Y = Step_Y * int(std::floor(height >> 1));
 	}
 
+	// process image block by block
 	for (int y = 0; y < TemoMAX_Y; y += Step_Y)
 	{
 		for (int x = 0; x < TemoMAX_X; x += Step_X)
@@ -137,7 +138,7 @@ bool como_engine::extractFromBlock(cv::Mat& imageBlock, cv::Mat& features)
 	calculateDistances(huMoments, huTable, distances);
 
 	//The type of texture the current block belongs to is determined.
-	//A block can participate in more than one type of texture. 
+	//A block can participate in more than one type of texture.
 	int t = -1;
 	for (int iDistance = 0; iDistance < distances.size(); iDistance++)
 	{
@@ -179,7 +180,7 @@ bool como_engine::extractFromBlock(cv::Mat& imageBlock, cv::Mat& features)
 			}
 		}
 	}
-	
+
 	return true;
 }
 
@@ -313,7 +314,7 @@ bool como_engine::test(cv::Mat& image, cv::Mat& descriptor)
 	//std::vector<double> comoDescriptor = std::vector<double>(144);
 	cv::Mat comoDescriptor = cv::Mat::zeros(1, 144, CV_32F);
 	cv::Mat comoDescriptorQuantized = cv::Mat::zeros(1, 144, CV_8UC1);
-	//int T, 
+	//int T,
 	int area = Step_Y * Step_X;
 
 	int huTableRows = sizeof(mTextureDefinitionTable) / sizeof(mTextureDefinitionTable[0]);
@@ -345,7 +346,7 @@ bool como_engine::test(cv::Mat& image, cv::Mat& descriptor)
 				calculateDistances(huMoments, huTable, distances);
 
 				//The type of texture the current block belongs to is determined.
-				//A block can participate in more than one type of texture. 
+				//A block can participate in more than one type of texture.
 				int t = -1;
 				for (int iDistance = 0; iDistance < distances.size(); iDistance++)
 				{
