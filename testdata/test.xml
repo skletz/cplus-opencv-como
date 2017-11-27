@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<Descriptors type_id="opencv-matrix">
+  <rows>1</rows>
+  <cols>144</cols>
+  <dt>u</dt>
+  <data>
+    3 7 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0 0 0 0 0 0 0 3 7 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 2 6 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 7 4 0 0 0
+    0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    0 0 0 0 0 0 0 0</data></Descriptors>
+</opencv_storage>

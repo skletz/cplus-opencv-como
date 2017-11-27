@@ -61,6 +61,16 @@
             ReferencedContainer = "container:opencv-como.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "/Users/skletz/Dropbox/Programming/CUPCakes/opencv-como/testdata/test.jpg"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/skletz/Dropbox/Programming/CUPCakes/opencv-como/testdata/test.xml"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

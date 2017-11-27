@@ -5,6 +5,8 @@
 #include "fuzzificator.h"
 #include "quantifier.h"
 
+#include <opencv2/xfeatures2d/nonfree.hpp>
+
 class como_engine{
 
 private:
@@ -32,6 +34,8 @@ private:
 	fuzzificator* mFuzzificator;
 
 	quantifier* mQuantifier;
+    
+    cv::Ptr<cv::xfeatures2d::SURF> mDetector;
 
 public:
 
@@ -60,19 +64,19 @@ public:
 	 * \brief The function randomly creates feature points. The number of feature points depends on the size of image_in: mNRBLOCKS > (rows * cols) ? mNRBLOCKS : (rows * cols).
 	 * 
 	 * \param image_in 8-bit input image
-	 * \param featurePnts vector of points to store the feature points
+	 * \param featurePnts vector of KeyPoints to store the feature points
 	 * \return false on failure 
 	 */
-	bool detect(cv::Mat &image_in, std::vector<cv::Point2f> &featurePnts);
+	bool detect(cv::Mat &image_in, std::vector<cv::KeyPoint> &featurePnts);
 
 	/**
 	 * \brief Describe detected feature points (featurePnts) from the input image (image_in). Feature point descriptors are stored in the descriptors matrix (each row containing one descriptor)
-	 * \param image_in 
-	 * \param featurePnts 
-	 * \param descriptors 
+	 * \param image_in 8-bit input image
+	 * \param featurePnts vector of KeyPoints
+	 * \param descriptors output como descriptor
 	 * \return false on failure 
 	 */
-	bool describe(cv::Mat &image_in, std::vector<cv::Point2f> &featurePnts, cv::Mat &descriptors);
+	bool describe(cv::Mat &image_in, std::vector<cv::KeyPoint> &featurePnts, cv::Mat &descriptors);
 
 	/**
 	 * \brief Describes each block of an image. The image is subdivided into 40*40 blocks (max) or 20*20 blocks (min). If the block contains enough texture information, the color (HSV) as well as texture (HuMoments) are calculated and summed up in the descriptor.

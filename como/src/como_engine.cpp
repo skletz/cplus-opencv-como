@@ -6,6 +6,7 @@ como_engine::~como_engine(){ }
 
 bool como_engine::allocate()
 {
+    mDetector = cv::xfeatures2d::SURF::create(8000);
 	mFuzzificator = new fuzzificator();
 	mQuantifier = new quantifier();
 	return true;
@@ -17,37 +18,40 @@ void como_engine::deallocate()
 	delete mQuantifier;
 }
 
-bool como_engine::detect(cv::Mat &image_in, std::vector<cv::Point2f> &featurePnts)
+bool como_engine::detect(cv::Mat &image_in, std::vector<cv::KeyPoint> &featurePnts)
 {
 	if(image_in.empty())
 	{
 		return false;
 	}
 
-	//int size = float(image_in.cols * image_in.rows);
-	//if (size > (mBLOCKSIZE_MAX * mBLOCKSIZE_MAX))
-	//	size = (mBLOCKSIZE_MAX * mBLOCKSIZE_MAX);
-
+    std::vector<cv::KeyPoint> keypoints;
+    mDetector->detect(image_in, keypoints);
+    
 	//std::vector<cv::Point2f> points;
-	//points.resize(size);
-	//cv::RNG random;
-	//random.state = cv::getTickCount();
 
-	//for (int i = 0; i < size; i++)
-	//{
-	//	float x = random.uniform(float(0.0), float(1.0));
-	//	float y =random.uniform(float(0.0), float(1.0));
-	//	points[i] = cv::Point2f((x * image_in.rows), (y * image_in.cols));
-	//}
-
-	//featurePnts.assign(points.begin(), points.end());
+    cv::Mat debuggingImage;
+    //cv::drawKeypoints(image_in, keypoints, debuggingImage, cv::Scalar::all(-1), 4);
+    
+    //cv::imwrite("/Users/skletz/Dropbox/Programming/CUPCakes/opencv-como/debugging/test.jpg", debuggingImage);
+    
+	featurePnts.assign(keypoints.begin(), keypoints.end());
 	return true;
 }
 
-bool como_engine::describe(cv::Mat &image_in, std::vector<cv::Point2f> &featurePnts, cv::Mat &descriptors)
+bool como_engine::describe(cv::Mat &image_in, std::vector<cv::KeyPoint> &featurePnts, cv::Mat &descriptors)
 {
 
-	bool status = describe(image_in, descriptors);
+	//bool status = describe(image_in, descriptors);
+    
+    bool status = false;
+    for(size_t i = 0; i < featurePnts.size(); i++ ) {
+       
+        int radius = int(featurePnts.size());
+        int t = radius * 2 - sqrt(2) * radius;
+        std::cout << "T: " << t << std::endl;
+    }
+    
 	return status;
 }
 
