@@ -24,23 +24,23 @@ bool como_engine::detect(cv::Mat &image_in, std::vector<cv::Point2f> &featurePnt
 		return false;
 	}
 
-	int size = float(image_in.cols * image_in.rows);
-	if (size > (mBLOCKSIZE_MAX * mBLOCKSIZE_MAX))
-		size = (mBLOCKSIZE_MAX * mBLOCKSIZE_MAX);
+	//int size = float(image_in.cols * image_in.rows);
+	//if (size > (mBLOCKSIZE_MAX * mBLOCKSIZE_MAX))
+	//	size = (mBLOCKSIZE_MAX * mBLOCKSIZE_MAX);
 
-	std::vector<cv::Point2f> points;
-	points.resize(size);
-	cv::RNG random;
-	random.state = cv::getTickCount();
+	//std::vector<cv::Point2f> points;
+	//points.resize(size);
+	//cv::RNG random;
+	//random.state = cv::getTickCount();
 
-	for (int i = 0; i < size; i++)
-	{
-		float x = random.uniform(float(0.0), float(1.0));
-		float y =random.uniform(float(0.0), float(1.0));
-		points[i] = cv::Point2f((x * image_in.rows), (y * image_in.cols));
-	}
+	//for (int i = 0; i < size; i++)
+	//{
+	//	float x = random.uniform(float(0.0), float(1.0));
+	//	float y =random.uniform(float(0.0), float(1.0));
+	//	points[i] = cv::Point2f((x * image_in.rows), (y * image_in.cols));
+	//}
 
-	featurePnts.assign(points.begin(), points.end());
+	//featurePnts.assign(points.begin(), points.end());
 	return true;
 }
 

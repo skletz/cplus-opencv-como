@@ -54,6 +54,10 @@ int main(int argc, char **argv) {
 	cv::Mat descriptors;
 	comoExtractor.describe(image, descriptors);
 
+	cv::FileStorage file(outputFile, cv::FileStorage::WRITE);
+	file << "Descriptors" << descriptors;
+	file.release();
+
 	comoExtractor.deallocate();
 
 }

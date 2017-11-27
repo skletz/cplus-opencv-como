@@ -1,24 +1,10 @@
-﻿Der Buildvorgang wurde am 05.09.2017 09:59:18 gestartet.
+﻿Der Buildvorgang wurde am 27.11.2017 09:39:54 gestartet.
      1>Projekt "C:\Users\skletz\Dropbox\Programming\CUPCakes\opencv-como\ide\opencv-como.vcxproj" auf Knoten "2", Build Ziel(e).
      1>InitializeBuildStatus:
-         Aktualisieren des Timestamps von "x64\Debug\opencv-como.tlog\unsuccessfulbuild".
+         "x64\Debug\opencv-como.tlog\unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /IC:\libraries\opencv_3_1\opencv\build\include /ZI /nologo /W3 /WX- /sdl /Od /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt /FS ..\como\src\como_engine.cpp
-         como_engine.cpp
-     1>c:\users\skletz\dropbox\programming\cupcakes\opencv-como\como\src\como_engine.cpp(27): warning C4244: "Initialisierung": Konvertierung von "float" in "int", möglicher Datenverlust
-     1>c:\users\skletz\dropbox\programming\cupcakes\opencv-como\como\src\como_engine.cpp(159): warning C4244: "Initialisierung": Konvertierung von "float" in "int", möglicher Datenverlust
-     1>c:\users\skletz\dropbox\programming\cupcakes\opencv-como\como\src\como_engine.cpp(160): warning C4244: "Initialisierung": Konvertierung von "float" in "int", möglicher Datenverlust
-     1>c:\users\skletz\dropbox\programming\cupcakes\opencv-como\como\src\como_engine.cpp(161): warning C4244: "Initialisierung": Konvertierung von "float" in "int", möglicher Datenverlust
-     1>c:\users\skletz\dropbox\programming\cupcakes\opencv-como\como\src\como_engine.cpp(176): warning C4244: "Initialisierung": Konvertierung von "double" in "int", möglicher Datenverlust
-     1>c:\users\skletz\dropbox\programming\cupcakes\opencv-como\como\src\como_engine.cpp(178): warning C4244: "+=": Konvertierung von "double" in "float", möglicher Datenverlust
-     1>c:\users\skletz\dropbox\programming\cupcakes\opencv-como\como\src\como_engine.cpp(222): warning C4244: "-=": Konvertierung von "double" in "float", möglicher Datenverlust
-     1>c:\users\skletz\dropbox\programming\cupcakes\opencv-como\como\src\como_engine.cpp(257): warning C4244: "Argument": Konvertierung von "double" in "int", möglicher Datenverlust
-     1>c:\users\skletz\dropbox\programming\cupcakes\opencv-como\como\src\como_engine.cpp(367): warning C4244: "Initialisierung": Konvertierung von "float" in "int", möglicher Datenverlust
-     1>c:\users\skletz\dropbox\programming\cupcakes\opencv-como\como\src\como_engine.cpp(368): warning C4244: "Initialisierung": Konvertierung von "float" in "int", möglicher Datenverlust
-     1>c:\users\skletz\dropbox\programming\cupcakes\opencv-como\como\src\como_engine.cpp(369): warning C4244: "Initialisierung": Konvertierung von "float" in "int", möglicher Datenverlust
-     1>c:\users\skletz\dropbox\programming\cupcakes\opencv-como\como\src\como_engine.cpp(384): warning C4244: "Initialisierung": Konvertierung von "double" in "int", möglicher Datenverlust
-     1>c:\users\skletz\dropbox\programming\cupcakes\opencv-como\como\src\como_engine.cpp(386): warning C4244: "+=": Konvertierung von "double" in "float", möglicher Datenverlust
-     1>c:\users\skletz\dropbox\programming\cupcakes\opencv-como\como\src\como_engine.cpp(402): warning C4244: "/=": Konvertierung von "double" in "float", möglicher Datenverlust
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\CL.exe /c /IC:\libraries\opencv_3_1\opencv\build\include /ZI /nologo /W3 /WX- /sdl /Od /D _CRT_SECURE_NO_WARNINGS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt /FS ..\como\src\COMO.cpp
+         COMO.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\skletz\Dropbox\Programming\CUPCakes\opencv-como\ide\x64\Debug\opencv-como.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\libraries\opencv_3_1\opencv\build\x64\vc14\lib /LIBPATH:C:\libraries\opencv_3_1\opencv\build\x64\vc14\bin opencv_world310d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG:FASTLINK /PDB:"C:\Users\skletz\Dropbox\Programming\CUPCakes\opencv-como\ide\x64\Debug\opencv-como.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\skletz\Dropbox\Programming\CUPCakes\opencv-como\ide\x64\Debug\opencv-como.lib" /MACHINE:X64 x64\Debug\COMO.obj
          x64\Debug\como_engine.obj
@@ -33,4 +19,4 @@
 
 Der Buildvorgang wurde erfolgreich ausgeführt.
 
-Verstrichene Zeit 00:00:02.70
+Verstrichene Zeit 00:00:02.86
