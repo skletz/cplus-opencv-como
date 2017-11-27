@@ -135,7 +135,7 @@ void fuzzificator::findMembershipValueForTriangles(
 {
 	int Temp = 0;
 
-	int size = triangles.size();
+	int size = int(triangles.size());
 
 	for (int i = 0; i <= size - 1; i += 4) {
 
@@ -168,7 +168,7 @@ void fuzzificator::mMultiParticipateDefazzificator(
 
 	int RuleActivation = -1;
 
-	int size = rules.size();
+	int size = int(rules.size());
 
 	for (int i = 0; i < size; i++) {
 		if ((input1[rules[i]->input1] > 0) && 
@@ -192,7 +192,7 @@ void fuzzificator::mMultiParticipateDefazzificator(
 	std::vector<double>& input2, std::vector<double>& resultTable)
 {
 	int RuleActivation = -1;
-	int size = rules.size();
+	int size = int(rules.size());
 	double minimum = 0;
 	for (int i = 0; i < size; i++)
 	{

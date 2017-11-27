@@ -9,8 +9,8 @@
 #include <iostream>
 
 #include "como_engine.h"
-#include <vector>
-#include <opencv2/opencv.hpp>
+//#include <vector>
+//#include <opencv2/opencv.hpp>
 
 int main(int argc, char **argv) {
 
@@ -30,34 +30,34 @@ int main(int argc, char **argv) {
 	std::string videoFile = argv[1];
 	std::string outputFile = argv[2];
 
-	cv::Mat image = cv::imread(videoFile, CV_LOAD_IMAGE_COLOR);
-
-	if (!image.data)
-	{
-		std::cout << "Could not open or find the image: " << argv[1] << std::endl;
-		return -1;
-	}
-
-	como_engine comoExtractor;
-	comoExtractor.allocate();
-
-	//while (inputImageStream)
-	//{
-		//std::vector<cv::Point2f> featurePnts;
-	//	cv::Mat &descriptors;
-
-	//	image = get_newImage(); // no need to be implemented.
-		//comoExtractor.detect(image, featurePnts);
-	//	comoExtractor.describe(image, featurePnts, descriptors);
-	//}
-
-	cv::Mat descriptors;
-	comoExtractor.describe(image, descriptors);
-
-	cv::FileStorage file(outputFile, cv::FileStorage::WRITE);
-	file << "Descriptors" << descriptors;
-	file.release();
-
-	comoExtractor.deallocate();
+//	cv::Mat image = cv::imread(videoFile, CV_LOAD_IMAGE_COLOR);
+//
+//	if (!image.data)
+//	{
+//		std::cout << "Could not open or find the image: " << argv[1] << std::endl;
+//		return -1;
+//	}
+//
+//	como_engine comoExtractor;
+//	comoExtractor.allocate();
+//
+//	//while (inputImageStream)
+//	//{
+//		//std::vector<cv::Point2f> featurePnts;
+//	//	cv::Mat &descriptors;
+//
+//	//	image = get_newImage(); // no need to be implemented.
+//		//comoExtractor.detect(image, featurePnts);
+//	//	comoExtractor.describe(image, featurePnts, descriptors);
+//	//}
+//
+//	cv::Mat descriptors;
+//	comoExtractor.describe(image, descriptors);
+//
+//	cv::FileStorage file(outputFile, cv::FileStorage::WRITE);
+//	file << "Descriptors" << descriptors;
+//	file.release();
+//
+//	comoExtractor.deallocate();
 
 }

@@ -33,6 +33,6 @@ void quantifier::quantify(cv::Mat& descriptor, cv::Mat& output)
 		}
 
 	}
-	cv::Mat out(1, result.size(), CV_8UC1, result.data());
+	cv::Mat out(1, int(result.size()), CV_8UC1, result.data());
 	out.copyTo(output);
 }

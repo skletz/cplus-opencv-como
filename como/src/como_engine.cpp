@@ -120,7 +120,7 @@ bool como_engine::describe(cv::Mat& image, cv::Mat& descriptor)
 
 bool como_engine::extractFromBlock(cv::Mat& imageBlock, cv::Mat& features)
 {
-	int area = imageBlock.cols * imageBlock.rows;
+	//int area = imageBlock.cols * imageBlock.rows;
 	cv::Mat fuzzy10BinResult, fuzzy24BinResult;
 
 	int huTableRows = sizeof(mTextureDefinitionTable) / sizeof(mTextureDefinitionTable[0]);
@@ -195,7 +195,8 @@ void como_engine::calculateGrayscaleHistogram(cv::Mat& gray, cv::Mat& hist)
 	const float *ranges[] = { range };
 
 	cv::Mat tmp;
-	cv::calcHist(&gray, 1, 0, cv::Mat(), tmp, 1, &mGRAYHISTBINS, ranges, true, false);
+    int tmpHISTBin = mGRAYHISTBINS;
+	cv::calcHist(&gray, 1, 0, cv::Mat(), tmp, 1, &tmpHISTBin, ranges, true, false);
 
 	//transpose histogram
 	hist = tmp.col(0).t();
@@ -255,7 +256,7 @@ void como_engine::showHistogram(std::string name, cv::MatND &hist, int height, i
 	minMaxLoc(hist, 0, &maxVal, 0, 0);
 
 	int scale = 10;
-	cv::Mat histImg = cv::Mat::zeros(mGRAYHISTBINS, maxVal * scale, CV_8UC1);
+	cv::Mat histImg = cv::Mat::zeros(256, maxVal * scale, CV_8UC1);
 
 	for (int iEntry = 0; iEntry < mGRAYHISTBINS; iEntry++){
 		float binVal = hist.at<float>(iEntry,0);
