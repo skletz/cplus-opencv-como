@@ -6,7 +6,7 @@ como_engine::~como_engine(){ }
 
 bool como_engine::allocate()
 {
-    mDetector = cv::xfeatures2d::SURF::create(8000);
+    mDetector = cv::xfeatures2d::SURF::create(mMinHessian);
 	mFuzzificator = new fuzzificator();
 	mQuantifier = new quantifier();
 	return true;
@@ -31,9 +31,10 @@ bool como_engine::detect(cv::Mat &image_in, std::vector<cv::KeyPoint> &featurePn
 	//std::vector<cv::Point2f> points;
 
     cv::Mat debuggingImage;
-    //cv::drawKeypoints(image_in, keypoints, debuggingImage, cv::Scalar::all(-1), 4);
-    
+    cv::drawKeypoints(image_in, keypoints, debuggingImage, cv::Scalar::all(-1), 4);
+
     //cv::imwrite("/Users/skletz/Dropbox/Programming/CUPCakes/opencv-como/debugging/test.jpg", debuggingImage);
+    //cv::imwrite("/media/bns/DATA/projects/opencv-como/debugging/al_test.jpg", debuggingImage);
     
 	featurePnts.assign(keypoints.begin(), keypoints.end());
 	return true;
@@ -42,16 +43,125 @@ bool como_engine::detect(cv::Mat &image_in, std::vector<cv::KeyPoint> &featurePn
 bool como_engine::describe(cv::Mat &image_in, std::vector<cv::KeyPoint> &featurePnts, cv::Mat &descriptors)
 {
 
-	//bool status = describe(image_in, descriptors);
+    // DEBUG
+    cv::Mat blockImage = image_in.clone();
     
     bool status = false;
-    for(size_t i = 0; i < featurePnts.size(); i++ ) {
+    for(int i = 0; i < featurePnts.size(); i++ ) {
        
-        int radius = int(featurePnts.size());
-        int t = radius * 2 - sqrt(2) * radius;
-        std::cout << "T: " << t << std::endl;
+        int scale = int(featurePnts.at(i).size); // size of blob (= scale/radius)
+        cv::Point2f center = featurePnts.at(i).pt;
+
+        int diameter = 2 * scale;
+		int numBlocks = -1;
+		int blocksPerSide = -1;
+        int blockSide = -1;
+        int blockSize = -1;
+
+		if (diameter < mBLOCKSIZE_MIN) continue;
+
+		if (diameter == mBLOCKSIZE_MIN || diameter == mBLOCKSIZE_MAX)
+        {
+            blockSide = diameter;
+            blockSize = diameter;
+            numBlocks = 1;
+			blocksPerSide = 1;
+        }
+        else
+        {
+			if (diameter < mBLOCKSIZE_MAX)
+			{
+				blockSize = mBLOCKSIZE_MAX;
+                blockSide = mBLOCKSIZE_MAX;
+                numBlocks = 1;
+				blocksPerSide = 1;
+
+			}
+			else
+			{
+                blockSize = mBLOCKSIZE_MAX;
+				blocksPerSide = ((diameter / mBLOCKSIZE_MAX) + 1);
+				blockSide = blocksPerSide * blockSize;
+                numBlocks = blocksPerSide * blocksPerSide;
+			}
+
+        }
+
+        // DEBUG
+		cv::Scalar color(rand() % 255,rand() % 255,rand() % 255);
+	    int x1 = center.x-blockSide/2;
+        int x2 = center.y-blockSide/2;
+        int debugsize = 270;
+        int lineThickness = 2;
+        if (blockSide > debugsize) cv::rectangle(blockImage, cv::Point2f(x1,x2), cv::Point2f(x1+blockSide,x2+blockSide), color, lineThickness);
+        std::cout << "Keypoint(d = " << diameter << "): blockSize " << blockSize << ", #blocks: " << numBlocks << ", blockSide: " << blockSide  << std::endl;
+
+        // extract subpatch
+        cv::Mat subPatch;
+        cv::getRectSubPix(image_in, cv::Size(blockSide,blockSide), center, subPatch);
+
+		// DEBUG
+//		if (blockSide > debugsize)
+//		{
+//			cv::namedWindow( "Display window", CV_WINDOW_AUTOSIZE ); // Create a window for display.
+//			cv::imshow( "Display window", subPatch );                // Show our image inside it.
+//			cv::waitKey(0);
+//		}
+
+        cv::Mat comoDescriptor = cv::Mat::zeros(1, 144, CV_32F);
+
+        // get blocksize x blocksize blocks from subpatch
+        for (int i=0;i < blocksPerSide;i++)
+        {
+            for (int j = 0; j < blocksPerSide; j++)
+            {
+
+
+                cv::Mat block = subPatch(cv::Rect(i*blockSize,j*blockSize,blockSize,blockSize));
+                cv::Mat grayBlock;
+                convertToGrayscale(block, grayBlock);
+
+                cv::Mat huMoments, grayscaleHist;
+
+                calculateGrayscaleHistogram(grayBlock, grayscaleHist);
+                float entropy = calculateEntropy(grayscaleHist, grayBlock.rows * grayBlock.cols);
+
+                if (entropy >= 1)
+                {
+                    extractFromBlock(block, comoDescriptor);
+                }
+
+                // DEBUG
+                if (blockSide > debugsize)
+				{
+                    cv::rectangle(blockImage, cv::Point2f(x1+(i*blockSize),x2+(j*blockSize)), cv::Point2f(x1+(i*blockSize)+blockSize,x2+(j*blockSize)+blockSize), color, lineThickness);
+//                    cv::namedWindow( "Display window", CV_WINDOW_AUTOSIZE ); // Create a window for display.
+//                    cv::imshow( "Display window", block );                // Show our image inside it.
+//                    cv::waitKey(0);
+                }
+
+            }
+        }
+
+
+        // create quantized descriptor
+        cv::Mat comoDescriptorQuantized = cv::Mat::zeros(1, 144, CV_8UC1);
+        double sum = cv::sum(comoDescriptor)[0];
+        comoDescriptor /= sum;
+        mQuantifier->quantify(comoDescriptor, comoDescriptorQuantized);
+        cv::Mat descriptor;
+        comoDescriptorQuantized.copyTo(descriptor);
+
+        // add descriptor to result descriptors
+        descriptors.push_back(descriptor);
+
     }
-    
+
+    // DEBUG
+	//cv::imwrite("/Users/skletz/Dropbox/Programming/CUPCakes/opencv-como/debugging/test_block.jpg", debuggingImage);
+    //cv::imwrite("/media/bns/DATA/projects/opencv-como/debugging/al_block_test.jpg", blockImage);
+
+    status = true;
 	return status;
 }
 
