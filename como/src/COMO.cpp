@@ -56,7 +56,8 @@ int main(int argc, char **argv) {
     
    
     cv::Mat descriptors;
-	comoExtractor.describe(image, featurePnts, descriptors);
+    //comoExtractor.describe(image, descriptors);
+    comoExtractor.describe(image, featurePnts, descriptors);
 
 	cv::FileStorage file(outputFile, cv::FileStorage::WRITE);
 	file << "Descriptors" << descriptors;
