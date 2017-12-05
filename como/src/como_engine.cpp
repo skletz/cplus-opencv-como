@@ -30,12 +30,15 @@ bool como_engine::detect(cv::Mat &image_in, std::vector<cv::KeyPoint> &featurePn
     
 	//std::vector<cv::Point2f> points;
 
-    cv::Mat debuggingImage;
-    cv::drawKeypoints(image_in, keypoints, debuggingImage, cv::Scalar::all(-1), 4);
+    //TODO: remove debug
+    #if defined DEBUG
+        cv::Mat debuggingImage;
+        cv::drawKeypoints(image_in, keypoints, debuggingImage, cv::Scalar::all(-1), 4);
 
-    //cv::imwrite("/Users/skletz/Dropbox/Programming/CUPCakes/opencv-como/debugging/test.jpg", debuggingImage);
-    //cv::imwrite("/media/bns/DATA/projects/opencv-como/debugging/al_test.jpg", debuggingImage);
-    
+        //cv::imwrite("/Users/skletz/Dropbox/Programming/CUPCakes/opencv-como/debugging/test.jpg", debuggingImage);
+        cv::imwrite("/media/bns/DATA/projects/opencv-como/debugging/al_test.jpg", debuggingImage);
+    #endif
+
 	featurePnts.assign(keypoints.begin(), keypoints.end());
 	return true;
 }
@@ -43,23 +46,29 @@ bool como_engine::detect(cv::Mat &image_in, std::vector<cv::KeyPoint> &featurePn
 bool como_engine::describe(cv::Mat &image_in, std::vector<cv::KeyPoint> &featurePnts, cv::Mat &descriptors)
 {
 
-    // DEBUG
-    cv::Mat blockImage = image_in.clone();
-    
     bool status = false;
+
+    //TODO: remove
+    #if defined DEBUG
+        cv::Mat blockImage = image_in.clone();
+    #endif
+
+    // loop through keypoints
     for(int i = 0; i < featurePnts.size(); i++ ) {
        
-        int scale = int(featurePnts.at(i).size); // size of blob (= scale/radius)
+        int diameter = int(featurePnts.at(i).size); // size of blob (= scale/diameter)
         cv::Point2f center = featurePnts.at(i).pt;
 
-        int diameter = 2 * scale;
+        int radius = diameter /2;
 		int numBlocks = -1;
 		int blocksPerSide = -1;
         int blockSide = -1;
         int blockSize = -1;
 
+        // point too small
 		if (diameter < mBLOCKSIZE_MIN) continue;
 
+        // point exactly min or max block size
 		if (diameter == mBLOCKSIZE_MIN || diameter == mBLOCKSIZE_MAX)
         {
             blockSide = diameter;
@@ -69,6 +78,7 @@ bool como_engine::describe(cv::Mat &image_in, std::vector<cv::KeyPoint> &feature
         }
         else
         {
+            // point between min and max block size
 			if (diameter < mBLOCKSIZE_MAX)
 			{
 				blockSize = mBLOCKSIZE_MAX;
@@ -77,6 +87,7 @@ bool como_engine::describe(cv::Mat &image_in, std::vector<cv::KeyPoint> &feature
 				blocksPerSide = 1;
 
 			}
+            // point bigger than max block size
 			else
 			{
                 blockSize = mBLOCKSIZE_MAX;
@@ -87,26 +98,22 @@ bool como_engine::describe(cv::Mat &image_in, std::vector<cv::KeyPoint> &feature
 
         }
 
-        // DEBUG
-		cv::Scalar color(rand() % 255,rand() % 255,rand() % 255);
-	    int x1 = center.x-blockSide/2;
-        int x2 = center.y-blockSide/2;
-        int debugsize = 270;
-        int lineThickness = 2;
-        if (blockSide > debugsize) cv::rectangle(blockImage, cv::Point2f(x1,x2), cv::Point2f(x1+blockSide,x2+blockSide), color, lineThickness);
-        std::cout << "Keypoint(d = " << diameter << "): blockSize " << blockSize << ", #blocks: " << numBlocks << ", blockSide: " << blockSide  << std::endl;
+        //TODO: remove debug
+        #if defined DEBUG
+            cv::Scalar color(rand() % 255,rand() % 255,rand() % 255);
+            int x1 = center.x-blockSide/2;
+            int x2 = center.y-blockSide/2;
+            int debugsize = 20;
+            int lineThickness = 2;
+            if (blockSide > debugsize) cv::rectangle(blockImage, cv::Point2f(x1,x2), cv::Point2f(x1+blockSide,x2+blockSide), color, lineThickness);
+            std::cout << "Keypoint(d = " << diameter << "): blockSize " << blockSize << ", #blocks: " << numBlocks << ", blockSide: " << blockSide  << std::endl;
+        #endif
+
 
         // extract subpatch
         cv::Mat subPatch;
         cv::getRectSubPix(image_in, cv::Size(blockSide,blockSide), center, subPatch);
 
-		// DEBUG
-//		if (blockSide > debugsize)
-//		{
-//			cv::namedWindow( "Display window", CV_WINDOW_AUTOSIZE ); // Create a window for display.
-//			cv::imshow( "Display window", subPatch );                // Show our image inside it.
-//			cv::waitKey(0);
-//		}
 
         cv::Mat comoDescriptor = cv::Mat::zeros(1, 144, CV_32F);
 
@@ -131,14 +138,16 @@ bool como_engine::describe(cv::Mat &image_in, std::vector<cv::KeyPoint> &feature
                     extractFromBlock(block, comoDescriptor);
                 }
 
-                // DEBUG
-                if (blockSide > debugsize)
-				{
-                    cv::rectangle(blockImage, cv::Point2f(x1+(i*blockSize),x2+(j*blockSize)), cv::Point2f(x1+(i*blockSize)+blockSize,x2+(j*blockSize)+blockSize), color, lineThickness);
-//                    cv::namedWindow( "Display window", CV_WINDOW_AUTOSIZE ); // Create a window for display.
-//                    cv::imshow( "Display window", block );                // Show our image inside it.
-//                    cv::waitKey(0);
-                }
+                // TODO: remove debug
+                #if defined DEBUG
+                    if (blockSide > debugsize)
+                    {
+                        cv::rectangle(blockImage, cv::Point2f(x1 + (i * blockSize), x2 + (j * blockSize)),
+                                      cv::Point2f(x1 + (i * blockSize) + blockSize, x2 + (j * blockSize) + blockSize),
+                                      color, lineThickness);
+
+                    }
+                #endif
 
             }
         }
@@ -149,17 +158,18 @@ bool como_engine::describe(cv::Mat &image_in, std::vector<cv::KeyPoint> &feature
         double sum = cv::sum(comoDescriptor)[0];
         comoDescriptor /= sum;
         mQuantifier->quantify(comoDescriptor, comoDescriptorQuantized);
-        cv::Mat descriptor;
-        comoDescriptorQuantized.copyTo(descriptor);
 
-        // add descriptor to result descriptors
-        descriptors.push_back(descriptor);
+        // copy descriptor to result mat
+        comoDescriptorQuantized.copyTo(descriptors);
+
 
     }
 
-    // DEBUG
-	//cv::imwrite("/Users/skletz/Dropbox/Programming/CUPCakes/opencv-como/debugging/test_block.jpg", debuggingImage);
-    //cv::imwrite("/media/bns/DATA/projects/opencv-como/debugging/al_block_test.jpg", blockImage);
+    //TODO: remove debug
+    #if defined DEBUG
+        //cv::imwrite("/Users/skletz/Dropbox/Programming/CUPCakes/opencv-como/debugging/test_block.jpg", debuggingImage);
+        cv::imwrite("/media/bns/DATA/projects/opencv-como/debugging/al_block_test.jpg", blockImage);
+    #endif
 
     status = true;
 	return status;

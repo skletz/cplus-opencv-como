@@ -7,6 +7,9 @@
 
 #include <opencv2/xfeatures2d/nonfree.hpp>
 
+//TODO: remove
+//#define DEBUG
+
 class como_engine{
 
 private:
@@ -17,7 +20,7 @@ private:
 	static int const mGRAYHISTBINS = 256;
 	static int const mNRTEXTURES = 6;
 	static int const mNRHUMOMETS = 7;
-	static int const mMinHessian = 400; // good for natural images
+	static int const mMinHessian = 8000; // determines the # keypoints found
 
 	double mTextureDefinitionTable[mNRTEXTURES][mNRHUMOMETS] = {
 		{ 0.0012801877159444332, 1.2811997974150548E-8, 2.931517692794886E-11, 2.3361585476863737E-11, 1.0229383520567805E-21, -4.741043401863473E-16, 3.489450463009515E-23 },
